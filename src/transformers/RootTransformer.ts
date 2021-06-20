@@ -10,6 +10,7 @@ import ESMImportTransformer from "./ESMImportTransformer";
 import FlowTransformer from "./FlowTransformer";
 import JestHoistTransformer from "./JestHoistTransformer";
 import JSXTransformer from "./JSXTransformer";
+import LogicalAssignmentTransformer from "./LogicalAssignmentTransformer";
 import NumericSeparatorTransformer from "./NumericSeparatorTransformer";
 import OptionalCatchBindingTransformer from "./OptionalCatchBindingTransformer";
 import OptionalChainingNullishTransformer from "./OptionalChainingNullishTransformer";
@@ -41,6 +42,15 @@ export default class RootTransformer {
     this.isReactHotLoaderTransformEnabled = transforms.includes("react-hot-loader");
 
     if (!options.disableESTransforms) {
+      this.transformers.push(
+        new OptionalChainingNullishTransformer(tokenProcessor, this.nameManager),
+      );
+      this.transformers.push(new NumericSeparatorTransformer(tokenProcessor));
+      this.transformers.push(new OptionalCatchBindingTransformer(tokenProcessor, this.nameManager));
+
+      this.transformers.push(
+        new LogicalAssignmentTransformer(this, tokenProcessor, this.helperManager),
+      );
       this.transformers.push(
         new OptionalChainingNullishTransformer(tokenProcessor, this.nameManager),
       );

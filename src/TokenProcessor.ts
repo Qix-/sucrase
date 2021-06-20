@@ -242,6 +242,10 @@ export default class TokenProcessor {
       }
       this.resultCode += "([";
     }
+    if (token.isLogicalAssignStart) {
+      this.resultCode += this.helperManager.getHelperName("logicalAssign");
+      this.resultCode += "(";
+    }
   }
 
   private appendTokenSuffix(): void {

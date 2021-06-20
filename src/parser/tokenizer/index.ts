@@ -106,6 +106,7 @@ export class Token {
     this.numNullishCoalesceEnds = 0;
     this.isOptionalChainStart = false;
     this.isOptionalChainEnd = false;
+    this.isLogicalAssignStart = false;
     this.subscriptStartIndex = null;
     this.nullishStartIndex = null;
   }
@@ -136,6 +137,8 @@ export class Token {
   isOptionalChainStart: boolean;
   // If true, insert a `])` snippet after this token.
   isOptionalChainEnd: boolean;
+  // If true, insert a `logicalAssign(` snippet before this token.
+  isLogicalAssignStart: boolean;
   // Tag for `.`, `?.`, `[`, `?.[`, `(`, and `?.(` to denote the "root" token for this
   // subscript chain. This can be used to determine if this chain is an optional chain.
   subscriptStartIndex: number | null;
